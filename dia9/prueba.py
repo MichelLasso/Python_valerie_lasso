@@ -21,3 +21,4 @@ objetivo = int(input("target: "))
 
 print(buscar_insertar(entrada, objetivo))
 print("")
+#desarrollado por Valerie Lasso T.I 1093296678
