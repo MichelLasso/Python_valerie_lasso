@@ -1,1217 +1,155 @@
-import json #llamar el json
+import json
 
-#guadar el  archivo json en una variable llamada miJson
-with open("large-file.json",encoding="utf-8") as openfile:
+with open("info.json",encoding="utf-8") as openfile:
     miJson = json.load(openfile) 
 
-#guardar los eventos en una variable / para cada evento una variable distinta
-CrearEvento=[]
-WatchEvent=[]
-PushEvent=[]
-ForkEvent=[]
-IssueCommentEvent=[]
-PublicEvent=[]
-ReleaseEvent=[]
-IssuesEvent=[]
-DeleteEvent=[]
-PullRequestEvent=[]
-MemberEvent=[]
-GollumEvent=[]
-PullRequestReviewCommentEvent=[]
-CommitCommentEvent=[]
 
-new=[]
-nuevo_evento=[]
 
-def mostrar_menu():#funcion para mostrar el menu de lo que se pede hacer co los eventos
+def abrirArchivo():
+        
+    miJSON=[]
+    with open('info.json','r') as openfile:
+        miJSON= json.load(openfile)
+    return miJSON
 
-    print("\nMenú de Eventos:")
-    print("1. Crear un dato del evento")
-    print("2. Actualizar el dato del evento")
-    print("3. Revisar el dato del Evento")#
-    print("4. Eliminar el dato del Evento")#falta
+def guardarArchivo(miData):
+        
+    with open("info.json","w") as outfile:
+        json.dump(miData,outfile)
+
+def mostrar_menu():#funcion para mostrar el menu de lo que se pede hacer con los estudiantes
+
+    print("\nMenú de estudiantes:")
+    print("1. Revisar el estudiante")
+    print("2. Actualizar un dato del estudiante")
+    print("3. Crear el estudiante ")
+    print("4. Eliminar el estudiante")
     print("5. Salir del programa")
-
-def eventos():#funcion para mostrar los eventos
-    print("1. WatchEvent")
-    print("2. CreateEvent")
-    print("3. PushEvent")
-    print("4. ForkEvent")
-    print("5. IssueCommentEvent")
-    print("6. PublicEvent")
-    print("7. ReleaseEvent")
-    print("8. IssuesEvent")
-    print("9. DeleteEvent")
-    print("10. PullRequestEvent")
-    print("11. MemberEvent")
-    print("12. GollumEvent")
-    print("13. PullRequestReviewCommentEvent")
-    print("14. CommitCommentEvent")
-
+        
 def dato():#funcion para mostrar los datos editables
-    print("\nACTOR")
     print("1. ID")
-    print("2. login")
-    print("3. avatar url")
-    print("\nREPOSITORIO")
-    print("4. ID")
-    print("5. name")
-    print("6. Public")
+    print("2. nombre")
+    print("3. apellido")
+    print("4. edad")
+    print("5. fecha de nacimiento")
+    print("6. cedula")
+    print("7. email")
+    print("8. github")
 
-def crear_evento():
-
-    nuevo_evento = {
-        "id": input("Ingrese el ID del evento: "),
-        "type": input("Ingrese el tipo de evento: "),
-        "actor": {
-            "id": (input("Ingrese el ID del actor: ")),
-            "login": input("Ingrese el login del actor: "),
-            "gravatar_id": input("Ingrese el gravatar_id del actor : "),
-            "url": input("Ingrese la URL del actor: "),
-            "avatar_url": input("Ingrese la avatar_url del actor: ")
-        }
-    }
-    with open("eventos.json","w") as outfile:
-        json.dump(nuevo_evento,outfile)
-    
-
-#almacenar los datos json de cada evento en una nueva variable distinta para cada evento
+print("################")
+print("## PLATAFORMA DE GESTION ##")
+print("################")
+print("")
 
 bucle=True
 while bucle==True:
 
-    for i in range (len(miJson)):
-        if (miJson[i]["type"]=="WatchEvent"):
-            WatchEvent.append(miJson[i])
+    mostrar_menu()
+    print("Hola! Por favor escoge alguna de las opciones: ")
+    x=int(input("Cual opción escoges:"))
+    miInfo=[]
 
-    for i in range (len(miJson)):
-        if (miJson[i] ["type"]=="CreateEvent"):
-            CrearEvento.append(miJson[i])
+    if x==1:
 
-    for i in range (len(miJson)):
-        if (miJson[i]["type"]=="PushEvent"):
-            PushEvent.append(miJson[i])
+        miInfo=abrirArchivo()
+        for i in miInfo[0]["estudiantes"]:
+            print("################")
+            print("ID:",i["id"])
+            print("Nombre:",i["nombre"])
+            print("Apellido:",i["apellido"])
+            print("Edad",i["edad"])
+            print("Fecha de Nacimiento (DD-MM-AAAA):",i["fechaNacimiento"])
+            print("Cédula:",i["cedula"])
+            print("E-mail:",i["email"])
+            print("GitHub:",i["github"])
+            print("################")
+            print("")
 
-    for i in range (len(miJson)):
-        if (miJson[i]["type"]=="ForkEvent"):
-            ForkEvent.append(miJson[i])
+    elif x==2:
 
-    for i in range (len(miJson)):
-        if (miJson[i]["type"]=="IssueCommentEvent"):
-            IssueCommentEvent.append(miJson[i])
+        print("\nACTUALIZAR UN DATO DEL ESTUDIANTE ")
+        print("0. GRUPO T2\n1. GRUPO P1")
 
-    for i in range (len(miJson)):
-        if (miJson[i]["type"]=="PublicEvent"):
-            PublicEvent.append(miJson[i])
-
-    for i in range (len(miJson)):
-        if (miJson[i]["type"]=="ReleaseEvent"):
-            ReleaseEvent.append(miJson[i])
-
-    for i in range (len(miJson)):
-        if (miJson[i]["type"]=="IssuesEvent"):
-            IssuesEvent.append(miJson[i])
-
-    for i in range (len(miJson)):
-        if (miJson[i]["type"]=="DeleteEvent"):
-            DeleteEvent.append(miJson[i])
-
-    for i in range (len(miJson)):
-        if (miJson[i]["type"]=="PullRequestEvent"):
-            PullRequestEvent.append(miJson[i])
-
-    for i in range (len(miJson)):
-        if (miJson[i]["type"]=="MemberEvent"):
-            MemberEvent.append(miJson[i])
-
-    for i in range (len(miJson)):
-        if (miJson[i]["type"]=="GollumEvent"):
-            GollumEvent.append(miJson[i])
-
-    for i in range (len(miJson)):
-        if (miJson[i]["type"]=="PullRequestReviewCommentEvent"):
-            PullRequestReviewCommentEvent.append(miJson[i])
-
-    for i in range (len(miJson)):
-        if (miJson[i]["type"]=="CommitCommentEvent"):
-            CommitCommentEvent.append(miJson[i])
+        num=int(input("ingresa el indice del estudiante"))
 
 
-    mostrar_menu()#mostrar menu de opciones / pedir la opcion al usuario
-    opcion=int(input("ingresa la opcion que deseas realizar "))
-
-    if opcion==1:
-
-        crear_evento()
-
-    elif opcion==2: 
-
-        print("\nACTUALIZAR DATO DEL EVENTO")
-        eventos()
-        usuarioEvento=int(input("\nIngrese el número del evento que desea actualizar"))
+        if num==0: 
+            estudiante = int(input("ingresa el número del estudiante que deseas a cambiar? (1/2)"))
             
-        if usuarioEvento==1:
-
-            print("\nDeseas modificar el evento WatchEvent")
-                
-            num=int(input("Ingrese un número para editar un dato de WatchEvent"))
-            WatchEvent[num]
-                
             dato()
+
             dato_cambiar=int(input("\nQue dato deseas cambiar"))
-                
+                        
             if dato_cambiar==1:
+                
+                nuevo_id = input("Ingresa el nuevo id:")
+                miJson[0]["estudiantes"][estudiante-1]["id"] = nuevo_id
+                guardarArchivo(miJson)
+                print("Cambio realizado!")
+                            
+            elif dato_cambiar==2: 
 
-                print("CAMBIAR ID DEL ACTOR") 
-                cambiar_id=input("ingrese el nuevo ID")
-                WatchEvent[num]["actor"]["id"]=cambiar_id
-
-                with open("eventos.json","w") as outfile:
-                    json.dump(WatchEvent,outfile)
-
-
-            elif dato_cambiar==2:
-
-                print("\nCAMBIAR LOGIN  DEL ACTOR")
-                login_cambiar=input("ingrese el nuevo login ")
-                WatchEvent[num]["actor"]["login"]=login_cambiar
-
-                with open ("eventos.json","w") as a:
-                    json.dump(WatchEvent,a)
-
+                nuevo_name = input("Ingresa el nuevo nombre:")
+                miJson[0]["estudiantes"][estudiante-1]["nombre"] = nuevo_name
+                guardarArchivo(miJson)
+                print("Cambio realizado!")
 
             elif dato_cambiar==3:
 
-                print("\n CAMBIAR AVATAR URL  DEL ACTOR")    
-                cambiar_avatar_url=(input("ingrese el nuevo url del avatar "))
-                WatchEvent[num]["actor"]["avatar_url"]=cambiar_avatar_url
+                nuevo_apellido = input("Ingresa el nuevo apellido:")
+                miJson[0]["estudiantes"][estudiante-1]["apellido"] = nuevo_apellido
+                guardarArchivo(miJson)
+                print("Cambio realizado!")
 
-                with open ("eventos.json","w") as outfile:
-                    json.dump(WatchEvent,outfile)
-            
             elif dato_cambiar==4:
 
-                print("CAMBIAR ID DEL REPOSITORIO ") 
-                cambiar_id=(input("ingrese el nuevo ID"))
-                WatchEvent[num]["repo"]["id"]=cambiar_id
-
-                with open("eventos.json","w") as outfile:
-                    json.dump(WatchEvent,outfile)
-
+                nuevo_edad = input("Ingresa la nuevo edad:")
+                miJson[0]["estudiantes"][estudiante-1]["edad"] = nuevo_edad
+                guardarArchivo(miJson)
+                print("Cambio realizado!")
+            
             elif dato_cambiar==5:
 
-                print("\nCAMBIAR NAME  DEL ACTOR")
-                name_cambiar=input("ingrese el nuevo name ")
-                WatchEvent[num]["repo"]["name"]=name_cambiar
+                nuevo_fecha = input("Ingresa la nueva fecha de nacimiento :")
+                miJson[0]["estudiantes"][estudiante-1]["fechaNacimiento"] = nuevo_fecha
+                guardarArchivo(miJson)
+                print("Cambio realizado!")
 
-                with open ("eventos.json","w") as outfile:
-                    json.dump(WatchEvent,outfile)
-            
             elif dato_cambiar==6:
-                 
-                print("\nCAMBIAR PUBLIC  DEL ACTOR")
-                public_cambiar=input("ingrese si quiere que sea publico o no\ntrue\nfalse ")
-                WatchEvent[num]["public"]=public_cambiar
 
-                with open ("eventos.json","w") as outfile:
-                        json.dump(WatchEvent,outfile)
-
-                if public_cambiar=="true":
-
-                    WatchEvent[num]["public"]=public_cambiar
-
-                elif public_cambiar=="false":
-
-                    WatchEvent[num]["public"]=public_cambiar
-
-        elif usuarioEvento==2:
-
-            print("\nDeseas modificar el evento CreatEvent")
+                nuevo_cedula = input("Ingresa la cedula nueva :")
+                miJson[0]["estudiantes"][estudiante-1]["cedula"] = nuevo_cedula
+                guardarArchivo(miJson)
+                print("Cambio realizado!")
+            
+            elif dato_cambiar==7:
                 
-            num=int(input("Ingrese un número para editar un dato de CreatEvent"))
-            CrearEvento[num]
+                nuevo_email = input("Ingresa la email nueva :")
+                miJson[0]["estudiantes"][estudiante-1]["email"] = nuevo_email
+                guardarArchivo(miJson)
+                print("Cambio realizado!")
                 
-            dato()
-            dato_cambiar=int(input("\nQue dato deseas cambiar"))
-            
-            if dato_cambiar==1:
-
-                print("CAMBIAR ID DEL ACTOR") 
-                cambiar_id=input("ingrese el nuevo ID")
-                CrearEvento[num]["actor"]["id"]=cambiar_id
-
-                with open("eventos.json","w") as outfile:
-                    json.dump(CrearEvento,outfile)
-
-
-            elif dato_cambiar==2:
-
-                print("\nCAMBIAR LOGIN  DEL ACTOR")
-                login_cambiar=input("ingrese el nuevo login ")
-                CrearEvento[num]["actor"]["login"]=login_cambiar
-
-                with open ("eventos.json","w") as a:
-                    json.dump(CrearEvento,a)
-
-
-            elif dato_cambiar==3:
-
-                print("\n CAMBIAR AVATAR URL  DEL ACTOR")    
-                cambiar_avatar_url=(input("ingrese el nuevo url del avatar "))
-                CrearEvento[num]["actor"]["avatar_url"]=cambiar_avatar_url
-
-                with open ("eventos.json","w") as outfile:
-                    json.dump(CrearEvento,outfile)
-            
-            elif dato_cambiar==4:
-
-                print("CAMBIAR ID DEL REPOSITORIO ") 
-                cambiar_id=(input("ingrese el nuevo ID"))
-                CrearEvento[num]["repo"]["id"]=cambiar_id
-
-                with open("eventos.json","w") as outfile:
-                    json.dump(CrearEvento,outfile)
-
-            elif dato_cambiar==5:
-
-                print("\nCAMBIAR NAME  DEL ACTOR")
-                name_cambiar=input("ingrese el nuevo name ")
-                CrearEvento[num]["repo"]["name"]=name_cambiar
-
-                with open ("eventos.json","w") as outfile:
-                    json.dump(CrearEvento,outfile)
-            
-            elif dato_cambiar==6:
-                 
-                print("\nCAMBIAR PUBLIC  DEL ACTOR")
-                public_cambiar=input("ingrese si quiere que sea publico o no\ntrue\nfalse ")
-                CrearEvento[num]["public"]=public_cambiar
-
-                with open ("eventos.json","w") as outfile:
-                        json.dump(CrearEvento,outfile)
-
-                if public_cambiar=="true":
-
-                    CrearEvento[num]["public"]=public_cambiar
-
-                elif public_cambiar=="false":
-
-                    CrearEvento[num]["public"]=public_cambiar
-
-        elif usuarioEvento==3:
-
-            print("\nDeseas modificar el evento PushEvent")
-                
-            num=int(input("Ingrese un número para editar un dato de PushEvent"))
-            PushEvent[num]
-                
-            dato()
-            dato_cambiar=int(input("\nQue dato deseas cambiar"))
-            
-            if dato_cambiar==1:
-
-                print("CAMBIAR ID DEL ACTOR") 
-                cambiar_id=input("ingrese el nuevo ID")
-                PushEvent[num]["actor"]["id"]=cambiar_id
-
-                with open("eventos.json","w") as outfile:
-                    json.dump(PushEvent,outfile)
-
-
-            elif dato_cambiar==2:
-
-                print("\nCAMBIAR LOGIN  DEL ACTOR")
-                login_cambiar=input("ingrese el nuevo login ")
-                PushEvent[num]["actor"]["login"]=login_cambiar
-
-                with open ("eventos.json","w") as a:
-                    json.dump(PushEvent,a)
-
-
-            elif dato_cambiar==3:
-
-                print("\n CAMBIAR AVATAR URL  DEL ACTOR")    
-                cambiar_avatar_url=(input("ingrese el nuevo url del avatar "))
-                PushEvent[num]["actor"]["avatar_url"]=cambiar_avatar_url
-
-                with open ("eventos.json","w") as outfile:
-                    json.dump(PushEvent,outfile)
-            
-            elif dato_cambiar==4:
-
-                print("CAMBIAR ID DEL REPOSITORIO ") 
-                cambiar_id=(input("ingrese el nuevo ID"))
-                PushEvent[num]["repo"]["id"]=cambiar_id
-
-                with open("eventos.json","w") as outfile:
-                    json.dump(PushEvent,outfile)
-
-            elif dato_cambiar==5:
-
-                print("\nCAMBIAR NAME  DEL ACTOR")
-                name_cambiar=input("ingrese el nuevo name ")
-                PushEvent[num]["repo"]["name"]=name_cambiar
-
-                with open ("eventos.json","w") as outfile:
-                    json.dump(PushEvent,outfile)
-            
-            elif dato_cambiar==6:
-                 
-                print("\nCAMBIAR PUBLIC  DEL ACTOR")
-                public_cambiar=input("ingrese si quiere que sea publico o no\ntrue\nfalse ")
-                PushEvent[num]["public"]=public_cambiar
-
-                with open ("eventos.json","w") as outfile:
-                        json.dump(PushEvent,outfile)
-
-                if public_cambiar=="true":
-
-                    PushEvent[num]["public"]=public_cambiar
-
-                elif public_cambiar=="false":
-
-                    PushEvent[num]["public"]=public_cambiar
-
-        elif usuarioEvento==4:
-
-            print("\nDeseas modificar el evento ForkEvent")
-                
-            num=int(input("Ingrese un número para editar un dato de ForkEvent"))
-            ForkEvent[num]
-                
-            dato()
-            dato_cambiar=int(input("\nQue dato deseas cambiar"))
-            
-            if dato_cambiar==1:
-
-                print("CAMBIAR ID DEL ACTOR") 
-                cambiar_id=input("ingrese el nuevo ID")
-                ForkEvent[num]["actor"]["id"]=cambiar_id
-
-                with open("eventos.json","w") as outfile:
-                    json.dump(ForkEvent,outfile)
-
-
-            elif dato_cambiar==2:
-
-                print("\nCAMBIAR LOGIN  DEL ACTOR")
-                login_cambiar=input("ingrese el nuevo login ")
-                ForkEvent[num]["actor"]["login"]=login_cambiar
-
-                with open ("eventos.json","w") as a:
-                    json.dump(ForkEvent,a)
-
-
-            elif dato_cambiar==3:
-
-                print("\n CAMBIAR AVATAR URL  DEL ACTOR")    
-                cambiar_avatar_url=(input("ingrese el nuevo url del avatar "))
-                ForkEvent[num]["actor"]["avatar_url"]=cambiar_avatar_url
-
-                with open ("eventos.json","w") as outfile:
-                    json.dump(ForkEvent,outfile)
-            
-            elif dato_cambiar==4:
-
-                print("CAMBIAR ID DEL REPOSITORIO ") 
-                cambiar_id=(input("ingrese el nuevo ID"))
-                ForkEvent[num]["repo"]["id"]=cambiar_id
-
-                with open("eventos.json","w") as outfile:
-                    json.dump(ForkEvent,outfile)
-
-            elif dato_cambiar==5:
-
-                print("\nCAMBIAR NAME  DEL ACTOR")
-                name_cambiar=input("ingrese el nuevo name ")
-                ForkEvent[num]["repo"]["name"]=name_cambiar
-
-                with open ("eventos.json","w") as outfile:
-                    json.dump(ForkEvent,outfile)
-            
-            elif dato_cambiar==6:
-                 
-                print("\nCAMBIAR PUBLIC  DEL ACTOR")
-                public_cambiar=input("ingrese si quiere que sea publico o no\ntrue\nfalse ")
-                ForkEvent[num]["public"]=public_cambiar
-
-                with open ("eventos.json","w") as outfile:
-                        json.dump(ForkEvent,outfile)
-
-                if public_cambiar=="true":
-
-                    ForkEvent[num]["public"]=public_cambiar
-
-                elif public_cambiar=="false":
-
-                    ForkEvent[num]["public"]=public_cambiar
-
-        elif usuarioEvento==5:
-
-            print("\nDeseas modificar el evento IssueCommentEvent")
-                
-            num=int(input("Ingrese un número para editar un dato de IssueCommentEvent"))
-            IssueCommentEvent[num]
-                
-            dato()
-            dato_cambiar=int(input("\nQue dato deseas cambiar"))
-            
-            if dato_cambiar==1:
-
-                print("CAMBIAR ID DEL ACTOR") 
-                cambiar_id=input("ingrese el nuevo ID")
-                IssueCommentEvent[num]["actor"]["id"]=cambiar_id
-
-                with open("eventos.json","w") as outfile:
-                    json.dump(IssueCommentEvent,outfile)
-
-
-            elif dato_cambiar==2:
-
-                print("\nCAMBIAR LOGIN  DEL ACTOR")
-                login_cambiar=input("ingrese el nuevo login ")
-                IssueCommentEvent[num]["actor"]["login"]=login_cambiar
-
-                with open ("eventos.json","w") as a:
-                    json.dump(IssueCommentEvent,a)
-
-
-            elif dato_cambiar==3:
-
-                print("\n CAMBIAR AVATAR URL  DEL ACTOR")    
-                cambiar_avatar_url=(input("ingrese el nuevo url del avatar "))
-                IssueCommentEvent[num]["actor"]["avatar_url"]=cambiar_avatar_url
-
-                with open ("eventos.json","w") as outfile:
-                    json.dump(IssueCommentEvent,outfile)
-            
-            elif dato_cambiar==4:
-
-                print("CAMBIAR ID DEL REPOSITORIO ") 
-                cambiar_id=(input("ingrese el nuevo ID"))
-                IssueCommentEvent[num]["repo"]["id"]=cambiar_id
-
-                with open("eventos.json","w") as outfile:
-                    json.dump(IssueCommentEvent,outfile)
-
-            elif dato_cambiar==5:
-
-                print("\nCAMBIAR NAME  DEL ACTOR")
-                name_cambiar=input("ingrese el nuevo name ")
-                IssueCommentEvent[num]["repo"]["name"]=name_cambiar
-
-                with open ("eventos.json","w") as outfile:
-                    json.dump(IssueCommentEvent,outfile)
-            
-            elif dato_cambiar==6:
-                 
-                print("\nCAMBIAR PUBLIC  DEL ACTOR")
-                public_cambiar=input("ingrese si quiere que sea publico o no\ntrue\nfalse ")
-                IssueCommentEvent[num]["public"]=public_cambiar
-
-                with open ("eventos.json","w") as outfile:
-                        json.dump(IssueCommentEvent,outfile)
-
-                if public_cambiar=="true":
-
-                    IssueCommentEvent[num]["public"]=public_cambiar
-
-                elif public_cambiar=="false":
-
-                    IssueCommentEvent[num]["public"]=public_cambiar
-
-        elif usuarioEvento==6:
-
-            print("\nDeseas modificar el evento PublicEvent")
-                
-            num=int(input("Ingrese un número para editar un dato de PublicEvent"))
-            PublicEvent[num]
-                
-            dato()
-            dato_cambiar=int(input("\nQue dato deseas cambiar"))
-            
-            if dato_cambiar==1:
-
-                print("CAMBIAR ID DEL ACTOR") 
-                cambiar_id=input("ingrese el nuevo ID")
-                PublicEvent[num]["actor"]["id"]=cambiar_id
-
-                with open("eventos.json","w") as outfile:
-                    json.dump(PublicEvent,outfile)
-
-
-            elif dato_cambiar==2:
-
-                print("\nCAMBIAR LOGIN  DEL ACTOR")
-                login_cambiar=input("ingrese el nuevo login ")
-                PublicEvent[num]["actor"]["login"]=login_cambiar
-
-                with open ("eventos.json","w") as a:
-                    json.dump(PublicEvent,a)
-
-
-            elif dato_cambiar==3:
-
-                print("\n CAMBIAR AVATAR URL  DEL ACTOR")    
-                cambiar_avatar_url=(input("ingrese el nuevo url del avatar "))
-                PublicEvent[num]["actor"]["avatar_url"]=cambiar_avatar_url
-
-                with open ("eventos.json","w") as outfile:
-                    json.dump(PublicEvent,outfile)
-            
-            elif dato_cambiar==4:
-
-                print("CAMBIAR ID DEL REPOSITORIO ") 
-                cambiar_id=(input("ingrese el nuevo ID"))
-                PublicEvent[num]["repo"]["id"]=cambiar_id
-
-                with open("eventos.json","w") as outfile:
-                    json.dump(PublicEvent,outfile)
-
-            elif dato_cambiar==5:
-
-                print("\nCAMBIAR NAME  DEL ACTOR")
-                name_cambiar=input("ingrese el nuevo name ")
-                PublicEvent[num]["repo"]["name"]=name_cambiar
-
-                with open ("eventos.json","w") as outfile:
-                    json.dump(PublicEvent,outfile)
-            
-            elif dato_cambiar==6:
-                 
-                print("\nCAMBIAR PUBLIC  DEL ACTOR")
-                public_cambiar=input("ingrese si quiere que sea publico o no\ntrue\nfalse ")
-                PublicEvent[num]["public"]=public_cambiar
-
-                with open ("eventos.json","w") as outfile:
-                        json.dump(PublicEvent,outfile)
-
-                if public_cambiar=="true":
-
-                    PublicEvent[num]["public"]=public_cambiar
-
-                elif public_cambiar=="false":
-
-                    PublicEvent[num]["public"]=public_cambiar         
+            elif dato_cambiar==8:
+
+                nuevo_github = input("Ingresa la cedula nueva :")
+                miJson[0]["estudiantes"][estudiante-1]["github"] = nuevo_github
+                guardarArchivo(miJson)
+                print("Cambio realizado!")
         
-        elif usuarioEvento==7:
+    elif x==3:
+        nuevo_evento = {
+        "id": input("Ingrese el ID del evento: "),
+        "nombre": input("Ingrese el nombre: "),
+        "apellido": input("ingrese el  apellido"),
+        "edad": (input("Ingrese la edad: ")),
+        "fecha de nacimiento": input("Ingrese la fecha de nacimiento: "),
+        "cedula": input("Ingrese la cedula : "),
+        "email": input("Ingrese el email: "),
+        "github": input("Ingrese el githb: ")
+        }
+        with open("info.json","w") as outfile:
+            json.dump(nuevo_evento,outfile)
+
+    elif x==5:
+        bucle==False
 
-            print("\nDeseas modificar el evento ReleaseEvent")
-                
-            num=int(input("Ingrese un número para editar un dato de ReleaseEvent"))
-            ReleaseEvent[num]
-                
-            dato()
-            dato_cambiar=int(input("\nQue dato deseas cambiar"))
-            
-            if dato_cambiar==1:
-
-                print("CAMBIAR ID DEL ACTOR") 
-                cambiar_id=input("ingrese el nuevo ID")
-                ReleaseEvent[num]["actor"]["id"]=cambiar_id
-
-                with open("eventos.json","w") as outfile:
-                    json.dump(ReleaseEvent,outfile)
-
-
-            elif dato_cambiar==2:
-
-                print("\nCAMBIAR LOGIN  DEL ACTOR")
-                login_cambiar=input("ingrese el nuevo login ")
-                ReleaseEvent[num]["actor"]["login"]=login_cambiar
-
-                with open ("eventos.json","w") as a:
-                    json.dump(ReleaseEvent,a)
-
-
-            elif dato_cambiar==3:
-
-                print("\n CAMBIAR AVATAR URL  DEL ACTOR")    
-                cambiar_avatar_url=(input("ingrese el nuevo url del avatar "))
-                ReleaseEvent[num]["actor"]["avatar_url"]=cambiar_avatar_url
-
-                with open ("eventos.json","w") as outfile:
-                    json.dump(ReleaseEvent,outfile)
-            
-            elif dato_cambiar==4:
-
-                print("CAMBIAR ID DEL REPOSITORIO ") 
-                cambiar_id=(input("ingrese el nuevo ID"))
-                ReleaseEvent[num]["repo"]["id"]=cambiar_id
-
-                with open("eventos.json","w") as outfile:
-                    json.dump(ReleaseEvent,outfile)
-
-            elif dato_cambiar==5:
-
-                print("\nCAMBIAR NAME  DEL ACTOR")
-                name_cambiar=input("ingrese el nuevo name ")
-                ReleaseEvent[num]["repo"]["name"]=name_cambiar
-
-                with open ("eventos.json","w") as outfile:
-                    json.dump(ReleaseEvent,outfile)
-            
-            elif dato_cambiar==6:
-                 
-                print("\nCAMBIAR PUBLIC  DEL ACTOR")
-                public_cambiar=input("ingrese si quiere que sea publico o no\ntrue\nfalse ")
-                ReleaseEvent[num]["public"]=public_cambiar
-
-                with open ("eventos.json","w") as outfile:
-                        json.dump(ReleaseEvent,outfile)
-
-                if public_cambiar=="true":
-
-                    ReleaseEvent[num]["public"]=public_cambiar
-
-                elif public_cambiar=="false":
-
-                    ReleaseEvent[num]["public"]=public_cambiar    
-
-        elif usuarioEvento==8:
-
-            print("\nDeseas modificar el evento IssuesEvent")
-                
-            num=int(input("Ingrese un número para editar un dato de IssuesEvent"))
-            IssuesEvent[num]
-                
-            dato()
-            dato_cambiar=int(input("\nQue dato deseas cambiar"))
-            
-            if dato_cambiar==1:
-
-                print("CAMBIAR ID DEL ACTOR") 
-                cambiar_id=input("ingrese el nuevo ID")
-                IssuesEvent[num]["actor"]["id"]=cambiar_id
-
-                with open("eventos.json","w") as outfile:
-                    json.dump(IssuesEvent,outfile)
-
-
-            elif dato_cambiar==2:
-
-                print("\nCAMBIAR LOGIN  DEL ACTOR")
-                login_cambiar=input("ingrese el nuevo login ")
-                IssuesEvent[num]["actor"]["login"]=login_cambiar
-
-                with open ("eventos.json","w") as a:
-                    json.dump(IssuesEvent,a)
-
-
-            elif dato_cambiar==3:
-
-                print("\n CAMBIAR AVATAR URL  DEL ACTOR")    
-                cambiar_avatar_url=(input("ingrese el nuevo url del avatar "))
-                IssuesEvent[num]["actor"]["avatar_url"]=cambiar_avatar_url
-
-                with open ("eventos.json","w") as outfile:
-                    json.dump(IssuesEvent,outfile)
-            
-            elif dato_cambiar==4:
-
-                print("CAMBIAR ID DEL REPOSITORIO ") 
-                cambiar_id=(input("ingrese el nuevo ID"))
-                IssuesEvent[num]["repo"]["id"]=cambiar_id
-
-                with open("eventos.json","w") as outfile:
-                    json.dump(IssuesEvent,outfile)
-
-            elif dato_cambiar==5:
-
-                print("\nCAMBIAR NAME  DEL ACTOR")
-                name_cambiar=input("ingrese el nuevo name ")
-                IssuesEvent[num]["repo"]["name"]=name_cambiar
-
-                with open ("eventos.json","w") as outfile:
-                    json.dump(IssuesEvent,outfile)
-            
-            elif dato_cambiar==6:
-                 
-                print("\nCAMBIAR PUBLIC  DEL ACTOR")
-                public_cambiar=input("ingrese si quiere que sea publico o no\ntrue\nfalse ")
-                IssuesEvent[num]["public"]=public_cambiar
-
-                with open ("eventos.json","w") as outfile:
-                        json.dump(IssuesEvent,outfile)
-
-                if public_cambiar=="true":
-
-                    IssuesEvent[num]["public"]=public_cambiar
-
-                elif public_cambiar=="false":
-
-                    IssuesEvent[num]["public"]=public_cambiar    
-
-        elif usuarioEvento==9:
-
-            print("\nDeseas modificar el evento DeleteEvent")
-                
-            num=int(input("Ingrese un número para editar un dato de DeleteEvent"))
-            DeleteEvent[num]
-                
-            dato()
-            dato_cambiar=int(input("\nQue dato deseas cambiar"))
-            
-            if dato_cambiar==1:
-
-                print("CAMBIAR ID DEL ACTOR") 
-                cambiar_id=input("ingrese el nuevo ID")
-                DeleteEvent[num]["actor"]["id"]=cambiar_id
-
-                with open("eventos.json","w") as outfile:
-                    json.dump(DeleteEvent,outfile)
-
-
-            elif dato_cambiar==2:
-
-                print("\nCAMBIAR LOGIN  DEL ACTOR")
-                login_cambiar=input("ingrese el nuevo login ")
-                DeleteEvent[num]["actor"]["login"]=login_cambiar
-
-                with open ("eventos.json","w") as a:
-                    json.dump(DeleteEvent,a)
-
-
-            elif dato_cambiar==3:
-
-                print("\n CAMBIAR AVATAR URL  DEL ACTOR")    
-                cambiar_avatar_url=(input("ingrese el nuevo url del avatar "))
-                DeleteEvent[num]["actor"]["avatar_url"]=cambiar_avatar_url
-
-                with open ("eventos.json","w") as outfile:
-                    json.dump(DeleteEvent,outfile)
-            
-            elif dato_cambiar==4:
-
-                print("CAMBIAR ID DEL REPOSITORIO ") 
-                cambiar_id=(input("ingrese el nuevo ID"))
-                DeleteEvent[num]["repo"]["id"]=cambiar_id
-
-                with open("eventos.json","w") as outfile:
-                    json.dump(DeleteEvent,outfile)
-
-            elif dato_cambiar==5:
-
-                print("\nCAMBIAR NAME  DEL ACTOR")
-                name_cambiar=input("ingrese el nuevo name ")
-                DeleteEvent[num]["repo"]["name"]=name_cambiar
-
-                with open ("eventos.json","w") as outfile:
-                    json.dump(DeleteEvent,outfile)
-            
-            elif dato_cambiar==6:
-                 
-                print("\nCAMBIAR PUBLIC  DEL ACTOR")
-                public_cambiar=input("ingrese si quiere que sea publico o no\ntrue\nfalse ")
-                DeleteEvent[num]["public"]=public_cambiar
-
-                with open ("eventos.json","w") as outfile:
-                        json.dump(DeleteEvent,outfile)
-
-                if public_cambiar=="true":
-
-                    DeleteEvent[num]["public"]=public_cambiar
-
-                elif public_cambiar=="false":
-
-                    DeleteEvent[num]["public"]=public_cambiar    
-
-        elif usuarioEvento==10:
-
-            print("\nDeseas modificar el evento PullRequestEvent")
-                
-            num=int(input("Ingrese un número para editar un dato de PullRequestEvent"))
-            PullRequestEvent[num]
-                
-            dato()
-            dato_cambiar=int(input("\nQue dato deseas cambiar"))
-            
-            if dato_cambiar==1:
-
-                print("CAMBIAR ID DEL ACTOR") 
-                cambiar_id=input("ingrese el nuevo ID")
-                PullRequestEvent[num]["actor"]["id"]=cambiar_id
-
-                with open("eventos.json","w") as outfile:
-                    json.dump(PullRequestEvent,outfile)
-
-
-            elif dato_cambiar==2:
-
-                print("\nCAMBIAR LOGIN  DEL ACTOR")
-                login_cambiar=input("ingrese el nuevo login ")
-                PullRequestEvent[num]["actor"]["login"]=login_cambiar
-
-                with open ("eventos.json","w") as a:
-                    json.dump(PullRequestEvent,a)
-
-
-            elif dato_cambiar==3:
-
-                print("\n CAMBIAR AVATAR URL  DEL ACTOR")    
-                cambiar_avatar_url=(input("ingrese el nuevo url del avatar "))
-                PullRequestEvent[num]["actor"]["avatar_url"]=cambiar_avatar_url
-
-                with open ("eventos.json","w") as outfile:
-                    json.dump(PullRequestEvent,outfile)
-            
-            elif dato_cambiar==4:
-
-                print("CAMBIAR ID DEL REPOSITORIO ") 
-                cambiar_id=(input("ingrese el nuevo ID"))
-                PullRequestEvent[num]["repo"]["id"]=cambiar_id
-
-                with open("eventos.json","w") as outfile:
-                    json.dump(PullRequestEvent,outfile)
-
-            elif dato_cambiar==5:
-
-                print("\nCAMBIAR NAME  DEL ACTOR")
-                name_cambiar=input("ingrese el nuevo name ")
-                PullRequestEvent[num]["repo"]["name"]=name_cambiar
-
-                with open ("eventos.json","w") as outfile:
-                    json.dump(PullRequestEvent,outfile)
-            
-            elif dato_cambiar==6:
-                 
-                print("\nCAMBIAR PUBLIC  DEL ACTOR")
-                public_cambiar=input("ingrese si quiere que sea publico o no\ntrue\nfalse ")
-                PullRequestEvent[num]["public"]=public_cambiar
-
-                with open ("eventos.json","w") as outfile:
-                        json.dump(PullRequestEvent,outfile)
-
-                if public_cambiar=="true":
-
-                    PullRequestEvent[num]["public"]=public_cambiar
-
-                elif public_cambiar=="false":
-
-                    PullRequestEvent[num]["public"]=public_cambiar    
-
-        elif usuarioEvento==11:
-
-            print("\nDeseas modificar el evento MemberEvent")
-                
-            num=int(input("Ingrese un número para editar un dato de MemberEvent"))
-            MemberEvent[num]
-                
-            dato()
-            dato_cambiar=int(input("\nQue dato deseas cambiar"))
-            
-            if dato_cambiar==1:
-
-                print("CAMBIAR ID DEL ACTOR") 
-                cambiar_id=input("ingrese el nuevo ID")
-                MemberEvent[num]["actor"]["id"]=cambiar_id
-
-                with open("eventos.json","w") as outfile:
-                    json.dump(MemberEvent,outfile)
-
-
-            elif dato_cambiar==2:
-
-                print("\nCAMBIAR LOGIN  DEL ACTOR")
-                login_cambiar=input("ingrese el nuevo login ")
-                MemberEvent[num]["actor"]["login"]=login_cambiar
-
-                with open ("eventos.json","w") as a:
-                    json.dump(MemberEvent,a)
-
-
-            elif dato_cambiar==3:
-
-                print("\n CAMBIAR AVATAR URL  DEL ACTOR")    
-                cambiar_avatar_url=(input("ingrese el nuevo url del avatar "))
-                MemberEvent[num]["actor"]["avatar_url"]=cambiar_avatar_url
-
-                with open ("eventos.json","w") as outfile:
-                    json.dump(MemberEvent,outfile)
-            
-            elif dato_cambiar==4:
-
-                print("CAMBIAR ID DEL REPOSITORIO ") 
-                cambiar_id=(input("ingrese el nuevo ID"))
-                MemberEvent[num]["repo"]["id"]=cambiar_id
-
-                with open("eventos.json","w") as outfile:
-                    json.dump(MemberEvent,outfile)
-
-            elif dato_cambiar==5:
-
-                print("\nCAMBIAR NAME  DEL ACTOR")
-                name_cambiar=input("ingrese el nuevo name ")
-                MemberEvent[num]["repo"]["name"]=name_cambiar
-
-                with open ("eventos.json","w") as outfile:
-                    json.dump(MemberEvent,outfile)
-            
-            elif dato_cambiar==6:
-                 
-                print("\nCAMBIAR PUBLIC  DEL ACTOR")
-                public_cambiar=input("ingrese si quiere que sea publico o no\ntrue\nfalse ")
-                MemberEvent[num]["public"]=public_cambiar
-
-                with open ("eventos.json","w") as outfile:
-                        json.dump(MemberEvent,outfile)
-
-                if public_cambiar=="true":
-
-                    MemberEvent[num]["public"]=public_cambiar
-
-                elif public_cambiar=="false":
-
-                    MemberEvent[num]["public"]=public_cambiar    
-
-        elif usuarioEvento==12:
-
-            print("\nDeseas modificar el evento GollumEvent")
-                
-            num=int(input("Ingrese un número para editar un dato de GollumEvent"))
-            GollumEvent[num]
-                
-            dato()
-            dato_cambiar=int(input("\nQue dato deseas cambiar"))
-            
-            if dato_cambiar==1:
-
-                print("CAMBIAR ID DEL ACTOR") 
-                cambiar_id=input("ingrese el nuevo ID")
-                GollumEvent[num]["actor"]["id"]=cambiar_id
-
-                with open("eventos.json","w") as outfile:
-                    json.dump(GollumEvent,outfile)
-
-
-            elif dato_cambiar==2:
-
-                print("\nCAMBIAR LOGIN  DEL ACTOR")
-                login_cambiar=input("ingrese el nuevo login ")
-                GollumEvent[num]["actor"]["login"]=login_cambiar
-
-                with open ("eventos.json","w") as a:
-                    json.dump(GollumEvent,a)
-
-
-            elif dato_cambiar==3:
-
-                print("\n CAMBIAR AVATAR URL  DEL ACTOR")    
-                cambiar_avatar_url=(input("ingrese el nuevo url del avatar "))
-                GollumEvent[num]["actor"]["avatar_url"]=cambiar_avatar_url
-
-                with open ("eventos.json","w") as outfile:
-                    json.dump(GollumEvent,outfile)
-            
-            elif dato_cambiar==4:
-
-                print("CAMBIAR ID DEL REPOSITORIO ") 
-                cambiar_id=(input("ingrese el nuevo ID"))
-                GollumEvent[num]["repo"]["id"]=cambiar_id
-
-                with open("eventos.json","w") as outfile:
-                    json.dump(GollumEvent,outfile)
-
-            elif dato_cambiar==5:
-
-                print("\nCAMBIAR NAME  DEL ACTOR")
-                name_cambiar=input("ingrese el nuevo name ")
-                GollumEvent[num]["repo"]["name"]=name_cambiar
-
-                with open ("eventos.json","w") as outfile:
-                    json.dump(GollumEvent,outfile)
-            
-            elif dato_cambiar==6:
-                 
-                print("\nCAMBIAR PUBLIC  DEL ACTOR")
-                public_cambiar=input("ingrese si quiere que sea publico o no\ntrue\nfalse ")
-                GollumEvent[num]["public"]=public_cambiar
-
-                with open ("eventos.json","w") as outfile:
-                        json.dump(GollumEvent,outfile)
-
-                if public_cambiar=="true":
-
-                    GollumEvent[num]["public"]=public_cambiar
-
-                elif public_cambiar=="false":
-
-                    GollumEvent[num]["public"]=public_cambiar    
-
-        elif usuarioEvento==13:
-
-            print("\nDeseas modificar el evento PullRequestReviewCommentEvent")
-                
-            num=int(input("Ingrese un número para editar un dato de PullRequestReviewCommentEvent"))
-            PullRequestReviewCommentEvent[num]
-                
-            dato()
-            dato_cambiar=int(input("\nQue dato deseas cambiar"))
-            
-            if dato_cambiar==1:
-
-                print("CAMBIAR ID DEL ACTOR") 
-                cambiar_id=input("ingrese el nuevo ID")
-                PullRequestReviewCommentEvent[num]["actor"]["id"]=cambiar_id
-
-                with open("eventos.json","w") as outfile:
-                    json.dump(PullRequestReviewCommentEvent,outfile)
-
-
-            elif dato_cambiar==2:
-
-                print("\nCAMBIAR LOGIN  DEL ACTOR")
-                login_cambiar=input("ingrese el nuevo login ")
-                PullRequestReviewCommentEvent[num]["actor"]["login"]=login_cambiar
-
-                with open ("eventos.json","w") as a:
-                    json.dump(PullRequestReviewCommentEvent,a)
-
-
-            elif dato_cambiar==3:
-
-                print("\n CAMBIAR AVATAR URL  DEL ACTOR")    
-                cambiar_avatar_url=(input("ingrese el nuevo url del avatar "))
-                PullRequestReviewCommentEvent[num]["actor"]["avatar_url"]=cambiar_avatar_url
-
-                with open ("eventos.json","w") as outfile:
-                    json.dump(PullRequestReviewCommentEvent,outfile)
-            
-            elif dato_cambiar==4:
-
-                print("CAMBIAR ID DEL REPOSITORIO ") 
-                cambiar_id=(input("ingrese el nuevo ID"))
-                PullRequestReviewCommentEvent[num]["repo"]["id"]=cambiar_id
-
-                with open("eventos.json","w") as outfile:
-                    json.dump(PullRequestReviewCommentEvent,outfile)
-
-            elif dato_cambiar==5:
-
-                print("\nCAMBIAR NAME  DEL ACTOR")
-                name_cambiar=input("ingrese el nuevo name ")
-                PullRequestReviewCommentEvent[num]["repo"]["name"]=name_cambiar
-
-                with open ("eventos.json","w") as outfile:
-                    json.dump(PullRequestReviewCommentEvent,outfile)
-            
-            elif dato_cambiar==6:
-                 
-                print("\nCAMBIAR PUBLIC  DEL ACTOR")
-                public_cambiar=input("ingrese si quiere que sea publico o no\ntrue\nfalse ")
-                PullRequestReviewCommentEvent[num]["public"]=public_cambiar
-
-                with open ("eventos.json","w") as outfile:
-                        json.dump(PullRequestReviewCommentEvent,outfile)
-
-                if public_cambiar=="true":
-
-                    PullRequestReviewCommentEvent[num]["public"]=public_cambiar
-
-                elif public_cambiar=="false":
-
-                    PullRequestReviewCommentEvent[num]["public"]=public_cambiar    
-
-        elif usuarioEvento==14:
-
-            print("\nDeseas modificar el evento CommitCommentEvent")
-                
-            num=int(input("Ingrese un número para editar un dato de CommitCommentEvent"))
-            CommitCommentEvent[num]
-                
-            dato()
-            dato_cambiar=int(input("\nQue dato deseas cambiar"))
-            
-            if dato_cambiar==1:
-
-                print("CAMBIAR ID DEL ACTOR") 
-                cambiar_id=input("ingrese el nuevo ID")
-                CommitCommentEvent[num]["actor"]["id"]=cambiar_id
-
-                with open("eventos.json","w") as outfile:
-                    json.dump(CommitCommentEvent,outfile)
-
-
-            elif dato_cambiar==2:
-
-                print("\nCAMBIAR LOGIN  DEL ACTOR")
-                login_cambiar=input("ingrese el nuevo login ")
-                CommitCommentEvent[num]["actor"]["login"]=login_cambiar
-
-                with open ("eventos.json","w") as a:
-                    json.dump(CommitCommentEvent,a)
-
-
-            elif dato_cambiar==3:
-
-                print("\n CAMBIAR AVATAR URL  DEL ACTOR")    
-                cambiar_avatar_url=(input("ingrese el nuevo url del avatar "))
-                CommitCommentEvent[num]["actor"]["avatar_url"]=cambiar_avatar_url
-
-                with open ("eventos.json","w") as outfile:
-                    json.dump(CommitCommentEvent,outfile)
-            
-            elif dato_cambiar==4:
-
-                print("CAMBIAR ID DEL REPOSITORIO ") 
-                cambiar_id=(input("ingrese el nuevo ID"))
-                CommitCommentEvent[num]["repo"]["id"]=cambiar_id
-
-                with open("eventos.json","w") as outfile:
-                    json.dump(CommitCommentEvent,outfile)
-
-            elif dato_cambiar==5:
-
-                print("\nCAMBIAR NAME  DEL ACTOR")
-                name_cambiar=input("ingrese el nuevo name ")
-                CommitCommentEvent[num]["repo"]["name"]=name_cambiar
-
-                with open ("eventos.json","w") as outfile:
-                    json.dump(CommitCommentEvent,outfile)
-            
-            elif dato_cambiar==6:
-                 
-                print("\nCAMBIAR PUBLIC  DEL ACTOR")
-                public_cambiar=input("ingrese si quiere que sea publico o no\ntrue\nfalse ")
-                CommitCommentEvent[num]["public"]=public_cambiar
-
-                with open ("eventos.json","w") as outfile:
-                        json.dump(CommitCommentEvent,outfile)
-
-                if public_cambiar=="true":
-
-                    CommitCommentEvent[num]["public"]=public_cambiar
-
-                elif public_cambiar=="false":
-
-                    CommitCommentEvent[num]["public"]=public_cambiar 
-
-    elif opcion==3:
-        print("REVISAR EL DATO DEL EVENTO")
-        eventos()
-        revisar=int(input("\nIngrese el número del evento que desea revisar"))
-
-        if revisar==1:
-            print("\nDeseas revisa el evento WatchEvent")
-                
-            num_revisar=int(input("Ingrese un número para revisar el dato del evento WatchEvent"))
-            WatchEvent[num_revisar]
-
-            dato()
-            dato_revisar=int(input("\nQue dato deseas revisar?"))
-
-            if dato_revisar==1: 
-
-                print("El ID del actor es :",WatchEvent[revisar]["actor"]["id"])
-
-            elif dato_revisar==2:
-
-                print("El login del actor es :",WatchEvent[revisar]["actor"]["login"])
-
-    elif opcion==5:
-        bucle=False
-
-        print("\nGracias por usar este programa :)")
-    #valerie
-
-    
