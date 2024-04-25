@@ -28,7 +28,7 @@ def mostrar_menu():#funcion para mostrar el menu de lo que se pede hacer co los 
     print("\nMenú de Eventos:")
     print("1. Crear un dato del evento")
     print("2. Actualizar el dato del evento")
-    print("3. Revisar el dato del Evento")#falta
+    print("3. Revisar el dato del Evento")#en proceso
     print("4. Eliminar el dato del Evento")#falta
     print("5. Salir del programa")
 
